@@ -20,7 +20,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSH_KEY }}
       with:
-        source: "public/*, src/server/index.js, package.json"
+        source: "public/*, src/server/*, package.json"
         target: "/var/www/ec.bryth.dev"
 
     - name: Restart pm2 process
