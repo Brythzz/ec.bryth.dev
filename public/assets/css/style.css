@@ -159,6 +159,7 @@ input.invalid {
 
 .check input {
     appearance: none;
+    -webkit-appearance: none;
     margin: 0;
     vertical-align: text-top;
     background: var(--white-10);
@@ -261,6 +262,8 @@ button:disabled {
 
 .theme-selector svg {
     padding: 0.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .color-selector {
