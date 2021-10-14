@@ -382,13 +382,16 @@ a {
 
 .setting {
     display: flex;
+    width: auto;
+    height: 1.25rem;
     padding: 1.125rem 2.625rem;
     margin: 0 -1.5rem .2rem;
-    background: var(--background-tertiary);
-    cursor: pointer;
-    height: 1.25rem;
     justify-content: space-between;
     align-items: center;
+    color: var(--white-100);
+    background: var(--background-tertiary);
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .disconnect {
@@ -410,6 +413,10 @@ a {
 
 .ducky.shown {
     transform: translateX(-200px);
+}
+
+.strike {
+    text-decoration: line-through;
 }
 
 .switch {
@@ -470,7 +477,7 @@ a {
         transform: scale(0.9);
     }
     100% {
-         transform: scale(1);
+        transform: scale(1);
     }
 }
 

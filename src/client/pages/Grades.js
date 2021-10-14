@@ -1,5 +1,6 @@
 import { get } from 'axios';
 import Graph from '../components/Graph';
+import { fetchExperiments } from '../utils';
 
 //////////////////////////////////////////////////
 //  GRADES
@@ -13,7 +14,8 @@ export default {
         return {
             userGrades: this.grades,
             currentTabIndex: this.getSchoolTrimester(),
-            tabs: ['1er', '2ème', '3ème']
+            tabs: ['1er', '2ème', '3ème'],
+            hideCs: false
         }
     },
 
@@ -32,6 +34,7 @@ export default {
 
     mounted() {
         this.getGrades();
+        this.hideCs = fetchExperiments()['ignoreCs'];
     },
 
     methods: {
@@ -70,14 +73,19 @@ export default {
             if (keys.length === 0)
                 return (this.currentTabIndex === tIdx) && <p class="no-content">Il n'y a rien à afficher<br/>pour le moment !</p>;
 
-            const sum = keys.reduce((sum, key) => sum + grades[key].value, 0);
+            let sum = keys.reduce((sum, key) => sum + grades[key].value, 0);
+            let len = keys.length;
+            if (this.hideCs) {
+                sum -= grades['NSINF'].value;
+                len -= 1;
+            }
 
             return (
                 (this.currentTabIndex === tIdx) && <>
-                    <Graph value={sum/keys.length} />
+                    <Graph value={sum/len} />
                     { Object.keys(grades).map((subject, idx) =>
                         <div class="grade" key={idx}>
-                            <span>{this.capitalize(grades[subject].name)}</span>
+                            <span class={ (this.hideCs && subject === 'NSINF') ? 'strike' : '' }>{this.capitalize(grades[subject].name)}</span>
                             <span>{grades[subject].value}</span>
                         </div>
                     ) }
