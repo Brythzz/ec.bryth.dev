@@ -75,7 +75,7 @@ export default {
 
             let sum = keys.reduce((sum, key) => sum + grades[key].value, 0);
             let len = keys.length;
-            if (this.hideCs) {
+            if (this.hideCs && grades['NSINF']) {
                 sum -= grades['NSINF'].value;
                 len -= 1;
             }
