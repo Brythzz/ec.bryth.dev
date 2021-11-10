@@ -123,14 +123,14 @@ form p {
 }
 
 input:focus + p, .filled + p {
-    transform: translate(.5rem, -5.35rem) scale(.8);
+    transform: translate(.5rem, -5.15rem) scale(.8);
     color: var(--white-40);
 }
 
 input {
     width: calc(100% - 1.125rem);
-    height: 3rem;
-    padding: 0 0 0 1rem;
+    height: 2.5rem;
+    padding: .5rem 0 0 1rem;
     margin-bottom: 1.25rem;
 
     border: 1px solid var(--white-10);
