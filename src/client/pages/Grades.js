@@ -68,7 +68,7 @@ export default {
         },
 
         renderGrades(grades, tIdx) {
-            const keys = Object.keys(grades);
+            const keys = Object.keys(grades).filter(key => grades[key].value !== null);
 
             if (keys.length === 0)
                 return (this.currentTabIndex === tIdx) && <p class="no-content">Il n'y a rien à afficher<br/>pour le moment !</p>;
@@ -83,7 +83,7 @@ export default {
             return (
                 (this.currentTabIndex === tIdx) && <>
                     <Graph value={sum/len} />
-                    { Object.keys(grades).map((subject, idx) =>
+                    { keys.map((subject, idx) =>
                         <div class="grade" key={idx}>
                             <span class={ (this.hideCs && subject === 'NSINF') ? 'strike' : '' }>{this.capitalize(grades[subject].name)}</span>
                             <span>{grades[subject].value}</span>
