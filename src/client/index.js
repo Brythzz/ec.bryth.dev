@@ -33,7 +33,10 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
     if (to.path === '/') {
-        const autoLogin = document.cookie?.split(/; ?/)?.find(row => row.startsWith('id='))?.split('=')[1];
+        // Optional chaning creates issues with older browsers
+        const cookies = document.cookie.split(/; ?/);
+        const uid = cookies ? cookies.find(row => row.startsWith('id=')) : null;
+        const autoLogin = uid ? uid.split('=')[1] : null;
 
         if (autoLogin)
             get('/api/v2/grades')
