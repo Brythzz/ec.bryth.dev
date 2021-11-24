@@ -2,10 +2,10 @@ import { get } from 'axios';
 import Graph from '../components/Graph';
 import { fetchExperiments } from '../utils';
 
+
 //////////////////////////////////////////////////
 //  GRADES
 //////////////////////////////////////////////////
-
 
 export default {
     props: ['cachedGrades', 'grades', 'setGrades'],

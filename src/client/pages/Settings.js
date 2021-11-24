@@ -3,10 +3,10 @@ import ToggleSwitch from '../components/ToggleSwitch';
 import BackButton from '../components/BackButton';
 import { fetchExperiments } from '../utils';
 
+
 //////////////////////////////////////////////////
 //  SETTINGS
 //////////////////////////////////////////////////
-
 
 export default {
     props: ['setGrades', 'cachedGrades'],

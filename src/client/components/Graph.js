@@ -3,7 +3,6 @@
 //  THEME SELECTOR
 //////////////////////////////////////////////////
 
-
 export default {
     props: ['value'],
 

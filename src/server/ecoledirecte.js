@@ -9,9 +9,7 @@ const userAgent = new UserAgent();
 //  ECOLE DIRECTE
 /////////////////////////////////////
 
-
 export default class EcoleDirecte {
-
     baseApiUrl = 'https://api.ecoledirecte.com/v3/';
     userAgent = userAgent.random().toString();
 
@@ -34,11 +32,9 @@ export default class EcoleDirecte {
         return { id, uid, name, surname, school, token: res.data.token }
     }
 
-
     /////////////////////////////////////
     //  GRADES
     /////////////////////////////////////
-
 
     async getGrades({ id, token, ua }) {
         const url     = `${this.baseApiUrl}eleves/${id}/notes.awp?verbe=get`;

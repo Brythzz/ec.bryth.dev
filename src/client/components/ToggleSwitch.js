@@ -3,7 +3,6 @@
 //  TOGGLE SWITCH
 //////////////////////////////////////////////////
 
-
 export default {
     props: ['state'],
 

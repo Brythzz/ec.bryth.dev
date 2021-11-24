@@ -6,10 +6,10 @@ import EcoleDirecte from './ecoledirecte.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
+
 //////////////////////////////////////
 //  EXPRESS
 //////////////////////////////////////
-
 
 const app = express();
 

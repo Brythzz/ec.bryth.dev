@@ -7,7 +7,6 @@ import { get } from 'axios';
 //  PAGES
 //////////////////////////////////////////////////
 
-
 import App from './pages/App';
 import Login from './pages/Login';
 import Grades from './pages/Grades';
@@ -18,7 +17,6 @@ import Experiments from './pages/Experiments';
 //////////////////////////////////////////////////
 //  ROUTES
 //////////////////////////////////////////////////
-
 
 const router = createRouter({
     history: createWebHistory(),
@@ -51,7 +49,6 @@ router.beforeEach((to, _, next) => {
 //////////////////////////////////////////////////
 //  MAIN
 //////////////////////////////////////////////////
-
 
 const app = createApp(App).use(router);
 

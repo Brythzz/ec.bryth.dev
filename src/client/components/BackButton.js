@@ -3,7 +3,6 @@
 //  BACK BUTTON
 //////////////////////////////////////////////////
 
-
 export default {
     props: ['route'],
 
