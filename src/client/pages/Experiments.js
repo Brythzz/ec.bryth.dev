@@ -1,6 +1,6 @@
 import ToggleSwitch from '../components/ToggleSwitch';
 import BackButton from '../components/BackButton';
-import { fetchExperiments } from '../utils';
+import { getLocalStorageJson } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -29,7 +29,7 @@ export default {
     },
     
     created() {
-        this.activeExperiments = fetchExperiments();
+        this.activeExperiments = getLocalStorageJson('experiments');
     },
 
     methods: {

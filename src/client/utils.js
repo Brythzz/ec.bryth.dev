@@ -1,9 +1,9 @@
-export const fetchExperiments = () => {
+export const getLocalStorageJson = (key) => {
     try {
-        const exp = localStorage.getItem('experiments') || '{}';
-        return JSON.parse(exp);
+        const json = localStorage.getItem(key) || '{}';
+        return JSON.parse(json);
     } catch(e) {
-        localStorage.setItem('experiments', '{}');
+        localStorage.setItem(key, '{}');
         return {};
     }
 }

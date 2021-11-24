@@ -1,6 +1,6 @@
 import { get } from 'axios';
 import Graph from '../components/Graph';
-import { fetchExperiments } from '../utils';
+import { getLocalStorageJson } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -34,7 +34,7 @@ export default {
 
     mounted() {
         this.getGrades();
-        this.hideCs = fetchExperiments()['ignoreCs'];
+        this.hideCs = getLocalStorageJson('experiments')['ignoreCs'];
     },
 
     methods: {

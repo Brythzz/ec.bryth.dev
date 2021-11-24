@@ -1,7 +1,7 @@
 import { post } from 'axios';
 import ToggleSwitch from '../components/ToggleSwitch';
 import BackButton from '../components/BackButton';
-import { fetchExperiments } from '../utils';
+import { getLocalStorageJson } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -31,7 +31,8 @@ export default {
     },
 
     mounted() {
-        this.experimentsTab = Object.keys(fetchExperiments()).length > 0;
+        this.experimentsTab = Object.keys(getLocalStorageJson('experiments')).length > 0;
+        this.showDucky = getLocalStorageJson('ducky');
     },
 
     methods: {
@@ -43,6 +44,7 @@ export default {
 
         toggleDukcy() {
             this.showDucky = !this.showDucky;
+            localStorage.setItem('ducky', this.showDucky);
         }
     }
 }
