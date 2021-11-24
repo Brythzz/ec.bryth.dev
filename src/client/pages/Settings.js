@@ -32,7 +32,7 @@ export default {
 
     mounted() {
         this.experimentsTab = Object.keys(getLocalStorageJson('experiments')).length > 0;
-        this.showDucky = getLocalStorageJson('ducky');
+        this.showDucky = getLocalStorageJson('ducky') === true;
     },
 
     methods: {
