@@ -420,6 +420,7 @@ a {
 .ducky {
     position: absolute;
     bottom: 8rem;
+    left: 11rem;
     width: 7.5rem;
     transform: translateX(-280px) rotate(80deg);
     transform-origin: left;
