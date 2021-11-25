@@ -8,7 +8,7 @@ import { getLocalStorageJson } from '../utils';
 //////////////////////////////////////////////////
 
 // Add new experiments here
-const experiments = ['ignoreCs'];
+const experiments = ['ignoreCs', 'pinkTheme'];
 
 export default {
     data() {

@@ -40,6 +40,19 @@
     --theme-color-hover: #a58fff;
 }
 
+.pink {
+    --theme-color: #e85fc6;
+    --theme-color-hover: #ff79c7;
+}
+
+svg.pink path:first-of-type {
+    fill: #ed8ad5;
+}
+
+svg.pink path:nth-of-type(2) {
+    fill: #ee70cf;
+}
+
 .blue {
     --theme-color: #0066ff;
     --theme-color-hover: #1f78ff;

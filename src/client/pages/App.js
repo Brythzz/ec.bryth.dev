@@ -1,4 +1,5 @@
 import ThemeSelector from '../components/ThemeSelector';
+import { getLocalStorageJson } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -9,7 +10,7 @@ export default {
 
     data() {
         return {
-            themes: ['red', 'purple', 'blue', 'green', 'yellow', 'white'],
+            themes: ['red', this.isPinkActive() ? 'pink' : 'purple', 'blue', 'green', 'yellow', 'white'],
             theme: '',
             cachedGrades: null
         }
@@ -31,7 +32,7 @@ export default {
         const themeId = localStorage.getItem('theme') || 5;
         this.setTheme(themeId);
         
-        this.sendConsoleMessage()
+        this.sendConsoleMessage();
     },
 
     methods: {
@@ -40,13 +41,17 @@ export default {
             localStorage.setItem('theme', themeId);
         },
 
+        isPinkActive() {
+            return getLocalStorageJson('experiments')['pinkTheme'];
+        },
+
         setGrades(grades) {
             this.cachedGrades = grades;
         },
 
         sendConsoleMessage() {
             const css = 'background: #e0005a; color: #fff; font-weight: bold; padding: 3px 8px; border-radius: 3px;'
-            console.log('%cVersion', css, '2.1.4');
+            console.log('%cVersion', css, '2.1.5');
             console.log('%cTwitter', css, '@Brythzz');
         }
     }
