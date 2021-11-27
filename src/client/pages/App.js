@@ -51,7 +51,7 @@ export default {
 
         sendConsoleMessage() {
             const css = 'background: #e0005a; color: #fff; font-weight: bold; padding: 3px 8px; border-radius: 3px;'
-            console.log('%cVersion', css, '2.1.5');
+            console.log('%cVersion', css, '2.1.6');
             console.log('%cTwitter', css, '@Brythzz');
         }
     }

@@ -18,7 +18,9 @@ export default {
         }
     },
 
-    render({ logout, toggleDukcy, showDucky, pinkDucky, experimentsTab }) {
+    render({ logout, toggleDukcy, showDucky, pinkDucky, experimentsTab, cachedGrades }) {
+        if (!cachedGrades) return null;
+
         return (
             <>  
                 <BackButton route='/grades'/>
