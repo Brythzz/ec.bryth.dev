@@ -60,7 +60,7 @@ export default {
             const month = date.getMonth() + 1;
 
             const isFirstTrimester = month > 8 && month < 12;
-            const isSecondTrimester = month > 11 && month < 3;
+            const isSecondTrimester = month > 11 || (month > 0 && month < 3)
 
             if (isFirstTrimester) return 0;
             if (isSecondTrimester) return 1;
