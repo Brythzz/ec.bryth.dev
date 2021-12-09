@@ -45,11 +45,11 @@
     --theme-color-hover: #ff79c7;
 }
 
-svg.pink path:first-of-type {
+svg.pink>path:first-child {
     fill: #ed8ad5;
 }
 
-svg.pink path:nth-of-type(2) {
+svg.pink>path:nth-of-type(2) {
     fill: #ee70cf;
 }
 
@@ -419,7 +419,7 @@ a {
 
 .ducky {
     position: absolute;
-    bottom: 8rem;
+    bottom: 5rem;
     left: 11rem;
     width: 7.5rem;
     transform: translateX(-280px) rotate(80deg);
@@ -429,6 +429,10 @@ a {
 
 .ducky.shown {
     transform: translateX(-200px);
+}
+
+.hidden {
+    display: none;
 }
 
 .strike {
