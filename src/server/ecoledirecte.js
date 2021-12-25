@@ -29,7 +29,7 @@ export default class EcoleDirecte {
         if (account.typeCompte !== 'E') throw 'Veuillez vous connecter avec un compte élève';
 
         const { id, uid, prenom: name, nom: surname, nomEtablissement:school } = account;
-        return { id, uid, name, surname, school, token: res.data.token }
+        return { id, uid, name, surname, school, token: res.data.token };
     }
 
     /////////////////////////////////////
