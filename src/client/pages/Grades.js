@@ -43,7 +43,8 @@ export default {
             if (!grades)
                 get('/api/v2/grades')
                     .then(res => {
-                        this.setGrades(res);
+                        this.setGrades(res)
+                        this.userGrades = res;
                     })
                     .catch(() => this.$router.push('/'));
 

@@ -9,10 +9,7 @@ export const getLocalStorageJson = (key) => {
 }
 
 export const get = async (url) => {
-    const res = await fetch(url, {
-        method: 'GET',
-        headers
-    });
+    const res = await fetch(url);
 
     if (res.status !== 200)
         throw new Error(`${res.status} ${res.statusText}`);
