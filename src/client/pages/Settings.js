@@ -1,7 +1,6 @@
-import { post, get } from 'axios';
 import ToggleSwitch from '../components/ToggleSwitch';
 import BackButton from '../components/BackButton';
-import { getLocalStorageJson } from '../utils';
+import { getLocalStorageJson, post, get } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -38,10 +37,10 @@ export default {
     mounted() {
         if (!this.cachedGrades) {
             get('/api/v2/grades')
-            .then(res => {
-                this.setGrades(res.data);
-            })
-            .catch(() => this.$router.push('/'));
+                .then(res => {
+                    this.setGrades(res);
+                })
+                .catch(() => this.$router.push('/'));
         }
 
         const experiments = getLocalStorageJson('experiments');

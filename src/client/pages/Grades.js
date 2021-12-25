@@ -1,6 +1,5 @@
-import { get } from 'axios';
 import Graph from '../components/Graph';
-import { getLocalStorageJson } from '../utils';
+import { getLocalStorageJson, get } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -44,8 +43,7 @@ export default {
             if (!grades)
                 get('/api/v2/grades')
                     .then(res => {
-                        this.userGrades = res.data;
-                        this.setGrades(res.data);
+                        this.setGrades(res);
                     })
                     .catch(() => this.$router.push('/'));
 

@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { get } from 'axios';
+import { get } from './utils';
 
 
 //////////////////////////////////////////////////
@@ -38,7 +38,7 @@ router.beforeEach((to, _, next) => {
 
         if (autoLogin)
             get('/api/v2/grades')
-                .then((res) => next({ name: 'grades', params: { grades: JSON.stringify(res.data) } }))
+                .then((res) => next({ name: 'grades', params: { grades: JSON.stringify(res) } }))
                 .catch(() => next());
         else next();
     }

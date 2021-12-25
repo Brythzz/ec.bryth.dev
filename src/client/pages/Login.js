@@ -1,4 +1,4 @@
-import { post } from 'axios';
+import { post } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -74,10 +74,11 @@ export default {
             this.loading = true;
 
             post('/api/v2/login', body)
-                .then((res) => this.$router.push({ name: 'grades', params: { grades: JSON.stringify(res.data.grades) } }))
+                .then(res => res.json())
+                .then((json) => this.$router.push({ name: 'grades', params: { grades: JSON.stringify(json.grades) } }))
 
                 .catch(err => {
-                    this.error = err.response.data;
+                    this.error = err.message;
 
                     this.loading = false;
                     this.shake = true;
