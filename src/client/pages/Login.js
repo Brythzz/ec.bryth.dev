@@ -32,14 +32,18 @@ export default {
                 <form onSubmit={handleSubmit}>
                     <h1>Ecole Directe</h1>
 
-                    <input onChange={(e) => (this.username.value = e.target.value)} class={`${username.value ? 'filled' : ''}${(!username.valid) ? ' invalid' : ''}`} type="text" name="username" autocomplete="username" />
-                    <p>Identifiant</p>
+                    <input onChange={(e) => (this.username.value = e.target.value)}
+                        class={`${username.value ? 'filled' : ''}${(!username.valid) ? ' invalid' : ''}`}
+                        type="text" name="username" autocomplete="username" aria-label="Identifiant"/>
+                    <p aria-hidden="true">Identifiant</p>
 
-                    <input onInput={(e) => (this.password.value = e.target.value)} class={`${password.value ? 'filled' : ''}${(!password.valid) ? ' invalid' : ''}`} type="password" name="password" autocomplete="current-password" />
-                    <p>Mot de passe</p>
+                    <input onInput={(e) => (this.password.value = e.target.value)}
+                        class={`${password.value ? 'filled' : ''}${(!password.valid) ? ' invalid' : ''}`}
+                        type="password" name="password" autocomplete="current-password" aria-label="Mot de passe"/>
+                    <p aria-hidden="true">Mot de passe</p>
 
                     <div class="check">
-                        <input onChange={(e) => (this.keepLoggedIn = e.target.checked)} type="checkbox" name="save"/>
+                        <input onChange={(e) => (this.keepLoggedIn = e.target.checked)} type="checkbox" name="save" id="save"/>
                         <svg viewBox="0 0 21 21" fill="none">
                             <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                         </svg>

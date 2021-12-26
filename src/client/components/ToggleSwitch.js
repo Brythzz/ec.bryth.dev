@@ -8,7 +8,7 @@ export default {
 
     render({ state }) {
         return (
-            <div class={'switch' + (state ? ' on' : '')}></div>
+            <div role="switch" aria-checked={state} class={'switch' + (state ? ' on' : '')}></div>
         );
     }
 }
