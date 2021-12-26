@@ -25,8 +25,8 @@ export default class EcoleDirecte {
         const res = await post(url, body, { headers });
         const account = res.data?.data?.accounts[0];
 
-        if (!account) throw 'Identifiants invalides';
-        if (account.typeCompte !== 'E') throw 'Veuillez vous connecter avec un compte élève';
+        if (!account) throw new Error('Identifiants invalides');
+        if (account.typeCompte !== 'E') throw new Error('Veuillez vous connecter avec un compte élève');
 
         const { id, uid, prenom: name, nom: surname, nomEtablissement:school } = account;
         return { id, uid, name, surname, school, token: res.data.token };
@@ -44,7 +44,7 @@ export default class EcoleDirecte {
         const res = await post(url, body, { headers });
 
         const grades = res.data.data.notes;
-        if (!grades) throw res.data.message;
+        if (!grades) throw new Error(res.data.message);
 
         return this.filterGrades(grades);
     }

@@ -42,10 +42,11 @@ app.post('/api/v2/login', async (req, res) => {
             res.cookie('id', id, { maxAge });
             res.cookie('ua', client.userAgent, { maxAge });
         }
+
         res.send({ ...user, grades });
     }
     catch (err) {
-        res.status(401).send(err);
+        res.status(401).send(err.message);
     }
 });
 
@@ -61,7 +62,7 @@ app.get('/api/v2/grades', async (req, res) => {
         res.send(grades);
     }
     catch (err) {
-        res.status(401).send(err);
+        res.status(401).send(err.message);
     }
 });
 
