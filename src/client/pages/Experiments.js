@@ -11,6 +11,8 @@ import { getLocalStorageJson } from '../utils';
 const experiments = ['ignoreCs', 'pinkTheme'];
 
 export default {
+    props: ['updateThemes'],
+
     data() {
         return {
             activeExperiments: null
@@ -37,6 +39,7 @@ export default {
             const isEnabled = this.activeExperiments[experimentName];
             this.activeExperiments[experimentName] = !isEnabled;
             localStorage.setItem('experiments', JSON.stringify({ ...this.activeExperiments, [experimentName]: !isEnabled }));
+            this.updateThemes();
         }
     }
 }
