@@ -464,6 +464,12 @@ a {
     background: var(--white-100);
 }
 
+input:-webkit-autofill {
+    /* Remove Chrome credentials autofill bg color */
+    transition: background-color, color;
+    transition-delay: 60000s;
+}
+
 @media screen and (max-width: 850px) {
     main {
         width: 25rem;
