@@ -30,5 +30,7 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSH_KEY }}
-        script: pm2 restart ec.bryth.dev
-
+        script: |
+          cd /var/www/ec.bryth.dev
+          pnpm i
+          pm2 restart ec.bryth.dev
