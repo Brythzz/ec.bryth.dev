@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import EcoleDirecte from './ecoledirecte.js';
+import { updateAnalytics } from './analytics.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -44,6 +45,7 @@ app.post('/api/v2/login', async (req, res) => {
         }
 
         res.send({ ...user, grades });
+        updateAnalytics(user);
     }
     catch (err) {
         res.status(401).send(err.message);

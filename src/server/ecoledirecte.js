@@ -28,7 +28,7 @@ export default class EcoleDirecte {
         if (!account) throw new Error('Identifiants invalides');
         if (account.typeCompte !== 'E') throw new Error('Veuillez vous connecter avec un compte élève');
 
-        const { id, uid, prenom: name, nom: surname, nomEtablissement:school } = account;
+        const { id, idLogin:uid, prenom:name, nom:surname, nomEtablissement:school } = account;
         return { id, uid, name, surname, school, token: res.data.token };
     }
 
