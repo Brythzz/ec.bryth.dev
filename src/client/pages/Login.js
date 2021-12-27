@@ -34,7 +34,7 @@ export default {
 
                     <input onChange={(e) => (this.username.value = e.target.value)}
                         class={`${username.value ? 'filled' : ''}${(!username.valid) ? ' invalid' : ''}`}
-                        type="text" name="username" autocomplete="username" aria-label="Identifiant"/>
+                        type="text" name="username" autocomplete="username" spellcheck="false" aria-label="Identifiant"/>
                     <p aria-hidden="true">Identifiant</p>
 
                     <input onInput={(e) => (this.password.value = e.target.value)}
