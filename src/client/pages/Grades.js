@@ -80,7 +80,7 @@ export default {
             }
 
             return (
-                (this.currentTabIndex === tIdx) && <>
+                <div style={{ display: (this.currentTabIndex === tIdx ? 'block' : 'none') }}>
                     <Graph value={sum/len} />
                     { keys.map((subject, idx) =>
                         <div class="grade" key={idx}>
@@ -88,7 +88,7 @@ export default {
                             <span>{grades[subject].value}</span>
                         </div>
                     ) }
-                </>
+                </div>
             )
         },
 
