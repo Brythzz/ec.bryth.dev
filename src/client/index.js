@@ -31,7 +31,7 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
     if (to.path === '/') {
-        // Optional chaning creates issues with older browsers
+        // Optional chaining causes issues with older browsers
         const cookies = document.cookie.split(/; ?/);
         const uid = cookies ? cookies.find(row => row.startsWith('id=')) : null;
         const autoLogin = uid ? uid.split('=')[1] : null;
