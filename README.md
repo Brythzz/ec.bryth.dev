@@ -15,10 +15,28 @@ pm2 start src/server --name ec.bryth.dev
 
 By default, the app will start on port `3000`
 
+### Nginx config
+```nginx
+server {
+  listen           80;
+  server_name      ec.bryth.dev;
+  root             /var/www/ec.bryth.dev/public;
+
+  location / {
+    error_page     500 502 503 504 =200 @error_page;
+    proxy_pass     http://127.0.0.1:3000/;
+  }
+
+  location @error_page {
+    try_files      $uri error-page.html =404;
+  }
+}
+```
+
 ## `.env` file
 ```
-MONGO_URI
-PORT
+MONGO_URI=mongodb+srv://user:password@cluster_name.mongodb.net/database?retryWrites=true&w=majority
+PORT=3000
 ```
 
 ## Database
