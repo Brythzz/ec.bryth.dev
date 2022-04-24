@@ -28,7 +28,7 @@ server {
   }
 
   location @error_page {
-    try_files      $uri error-page.html =404;
+    try_files      $uri error-page.html =503;
   }
 }
 ```
