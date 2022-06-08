@@ -11,7 +11,6 @@ import App from './pages/App';
 import Login from './pages/Login';
 import Grades from './pages/Grades';
 import Settings from './pages/Settings';
-import Experiments from './pages/Experiments';
 
 
 //////////////////////////////////////////////////
@@ -24,7 +23,6 @@ const router = createRouter({
         { path: '/', component: Login },
         { path: '/grades', name: 'grades', component: Grades, props: true },
         { path: '/settings', component: Settings },
-        { path: '/experiments', component: Experiments },
         { path: '/:404(.*)', redirect: '/' }
     ]
 });

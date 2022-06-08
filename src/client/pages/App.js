@@ -1,5 +1,5 @@
 import ThemeSelector from '../components/ThemeSelector';
-import { getLocalStorageJson } from '../utils';
+import { getLocalStorageItem } from '../utils.js';
 
 
 //////////////////////////////////////////////////
@@ -16,11 +16,11 @@ export default {
         }
     },
 
-    render({ setTheme, themes, themeId, setGrades, cachedGrades, updateThemes }) {
+    render({ setTheme, themes, themeId, setGrades, cachedGrades, enablePinkTheme }) {
         return (
             <main class={themes[themeId]}>
                 <div class="content">
-                    <router-view setGrades={setGrades} cachedGrades={cachedGrades} updateThemes={updateThemes}/>
+                    <router-view setGrades={setGrades} cachedGrades={cachedGrades} enablePinkTheme={enablePinkTheme} />
                     <ThemeSelector setTheme={setTheme} themes={themes} />
                 </div>
                 <div class="image"></div>
@@ -29,10 +29,12 @@ export default {
     },
 
     created() {
-        const themeId = localStorage.getItem('theme') || 5;
-        this.updateThemes()
+        const pinkTheme = getLocalStorageItem('pinkTheme');
+        this.enablePinkTheme(pinkTheme);
+
+        const themeId = getLocalStorageItem('theme') || 5;
         this.setTheme(themeId);
-        
+
         this.sendConsoleMessage();
     },
 
@@ -42,12 +44,9 @@ export default {
             localStorage.setItem('theme', themeId);
         },
 
-        isPinkActive() {
-            return getLocalStorageJson('experiments')['pinkTheme'];
-        },
-
-        updateThemes() {
-            this.themes[1] = this.isPinkActive() ? 'pink' : 'purple';
+        enablePinkTheme(enable) {
+            this.themes[1] = enable ? 'pink' : 'purple';
+            if (enable) this.themeId = 1;
         },
 
         setGrades(grades) {
@@ -56,7 +55,7 @@ export default {
 
         sendConsoleMessage() {
             const css = 'background: #e0005a; color: #fff; font-weight: bold; padding: 3px 8px; border-radius: 3px;'
-            console.log('%cVersion', css, '2.2.2');
+            console.log('%cVersion', css, '2.3.0');
             console.log('%cTwitter', css, '@Brythzz');
         }
     }

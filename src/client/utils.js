@@ -1,10 +1,10 @@
-export const getLocalStorageJson = (key) => {
+export const getLocalStorageItem = (key) => {
     try {
-        const json = localStorage.getItem(key) || '{}';
+        const json = localStorage.getItem(key) || 'false';
         return JSON.parse(json);
     } catch(e) {
-        localStorage.setItem(key, '{}');
-        return {};
+        localStorage.setItem(key, 'false');
+        return false;
     }
 }
 
