@@ -1,5 +1,5 @@
 import Graph from '../components/Graph';
-import { getLocalStorageJson, get } from '../utils';
+import { get } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -14,7 +14,6 @@ export default {
             userGrades: this.grades,
             currentTabIndex: this.getSchoolTrimester(),
             tabs: ['1er', '2ème', '3ème'],
-            hideCs: false
         }
     },
 
@@ -25,7 +24,7 @@ export default {
                     <div>{ tabs.map((tab, tabIdx) => <span key={tabIdx} class={(currentTabIndex === tabIdx) ? 'active' : ''} onClick={() => this.currentTabIndex = tabIdx}>{tab}</span>) }</div>
                     <router-link to='/settings'><svg width="42" height="42"><path d="M21.5 35a3.5 3.5 0 1 1 0-7 3.5 3.5 0 1 1 0 7zm0-10.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 1 1 0 7zm0-10.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 1 1 0 7z" fill="#fff"/></svg></router-link>
                 </nav>
-                { !userGrades && <div class="spinner"></div>}
+                { !userGrades && <div class="spinner"></div> }
                 { userGrades && Object.keys(userGrades).map((t, tIdx) => renderGrades(userGrades[t], tIdx)) }
             </>
         );
@@ -33,7 +32,6 @@ export default {
 
     mounted() {
         this.getGrades();
-        this.hideCs = getLocalStorageJson('experiments')['ignoreCs'];
     },
 
     methods: {
@@ -63,7 +61,7 @@ export default {
 
             if (isFirstTrimester) return 0;
             if (isSecondTrimester) return 1;
-            else return 2;
+            return 2;
         },
 
         renderGrades(grades, tIdx) {
@@ -72,19 +70,15 @@ export default {
             if (keys.length === 0)
                 return (this.currentTabIndex === tIdx) && <p class="no-content">Il n'y a rien à afficher<br/>pour le moment !</p>;
 
-            let sum = keys.reduce((sum, key) => sum + grades[key].value, 0);
-            let len = keys.length;
-            if (this.hideCs && grades['NSINF']) {
-                sum -= grades['NSINF'].value;
-                len -= 1;
-            }
+            const sum = keys.reduce((sum, key) => sum + grades[key].value * grades[key].coef, 0);
+            const len = keys.reduce((len, key) => len + grades[key].coef, 0);
 
             return (
                 <div style={{ display: (this.currentTabIndex === tIdx ? 'block' : 'none') }}>
                     <Graph value={sum/len} />
                     { keys.map((subject, idx) =>
                         <div class="grade" key={idx}>
-                            <span class={ (this.hideCs && subject === 'NSINF') ? 'strike' : '' }>{this.capitalize(grades[subject].name)}</span>
+                            <span>{this.capitalize(grades[subject].name)}</span>
                             <span>{grades[subject].value}</span>
                         </div>
                     ) }

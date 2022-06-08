@@ -43,13 +43,13 @@ export default class EcoleDirecte {
 
         const res = await post(url, body, { headers });
 
-        const grades = res.data.data.notes;
+        const { notes: grades, periodes: terms } = res.data.data;
         if (!grades) throw new Error(res.data.message);
 
-        return this.filterGrades(grades);
+        return this.filterGrades(grades, terms);
     }
 
-    filterGrades(gradeData) {
+    filterGrades(gradeData, terms) {
         let grades = {
             "A001": {},
             "A002": {},
@@ -58,19 +58,38 @@ export default class EcoleDirecte {
 
         for (let grade of gradeData) {
             let value = grade.valeur.replace(',', '.');
-            if (isNaN(value) || grade.nonSignificatif) continue;
+            if (isNaN(value) || grade.nonSignificatif || value === '') continue;
             let coef = grade.coef.replace(',', '.')*1;
 
-            if (grades[grade.codePeriode][grade.codeMatiere]) {
-                grades[grade.codePeriode][grade.codeMatiere].marks.push(((value / grade.noteSur.replace(',', '.')) * 20 * coef));
-                grades[grade.codePeriode][grade.codeMatiere].coef += coef;
+            const { codePeriode: termCode, codeMatiere: subjectCode } = grade;
+
+            if (grades[termCode][subjectCode]) {
+                grades[termCode][subjectCode].marks.push(((value / grade.noteSur.replace(',', '.')) * 20 * coef));
+                grades[termCode][subjectCode].coef += coef;
             } else
-                grades[grade.codePeriode][grade.codeMatiere] = { "marks": [(value / grade.noteSur.replace(',', '.')) * 20 * coef], "coef": coef, "name": grade.libelleMatiere };
+                grades[termCode][subjectCode] = {
+                    marks: [(value / grade.noteSur.replace(',', '.')) * 20 * coef],
+                    coef,
+                    name: grade.libelleMatiere
+                };
         }
 
-        for (let term in grades)
-            for (let sub in grades[term])
-                grades[term][sub] = { "value": Math.round(((grades[term][sub].marks.reduce((a,b) => a+b, 0) / grades[term][sub].coef) + Number.EPSILON) * 100) / 100, "name": grades[term][sub].name };
+        for (let term in grades) {
+            const termSubjectData = terms.find(t => t.idPeriode === term).ensembleMatieres.disciplines;
+
+            for (let sub in grades[term]) {
+                const subjectCoef = termSubjectData.find(s => s.codeMatiere === sub).coef;
+                const { marks, name, coef } = grades[term][sub];
+
+                const mean = Math.round((marks.reduce((a, b) => a + b, 0) / coef) * 100) / 100;
+
+                grades[term][sub] = {
+                    value: mean,
+                    name: name,
+                    coef: subjectCoef
+                };
+            }
+        }
 
         return grades;
     }
