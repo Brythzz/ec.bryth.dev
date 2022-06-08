@@ -62,6 +62,10 @@ User document:
  
 ## Changelog
 
+### 2.3.0
+Move pink theme toggle to `/settings`  
+Remove experiments system
+
 ### 2.2.2
 Improve accessibility  
 Optimize performance  
