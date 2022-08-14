@@ -43,6 +43,8 @@ export default class EcoleDirecte {
 
         const res = await post(url, body, { headers });
 
+        if (!res.data?.data?.notes) throw new Error(`Impossible de récupérer les notes`);
+
         const { notes: grades, periodes: terms } = res.data.data;
         if (!grades) throw new Error(res.data.message);
 
