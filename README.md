@@ -63,7 +63,7 @@ User document:
 ## Changelog
 
 ### 2.3.1
-Add Discord contact in console
+Add Discord contact in console  
 Add missing grades error handling
 
 ### 2.3.0
