@@ -24,8 +24,8 @@ mongoose.connect(mongoURI, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const incrementSchoolUniqueLogins = async (name) => {
     School.findOneAndUpdate(
-        { name }, 
-        { $inc: { uniqueLogins: 1 } }, 
+        { name },
+        { $inc: { uniqueLogins: 1 } },
         { upsert: true, new: true }
     ).exec();
 }
@@ -44,6 +44,3 @@ const incrementUserLogins = async ({ uid, school }) => {
 export const updateAnalytics = (user) => {
     incrementUserLogins(user);
 }
-
-// TODO: If there are too many requests for the db to handle,
-// cache data locally and push it to the db every x mins/h
