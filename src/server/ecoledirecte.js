@@ -80,7 +80,7 @@ export default class EcoleDirecte {
             const termSubjectData = terms.find(t => t.idPeriode === term).ensembleMatieres.disciplines;
 
             for (let sub in grades[term]) {
-                const subjectCoef = termSubjectData.find(s => s.codeMatiere === sub).coef;
+                const subjectCoef = termSubjectData.find(s => s.codeMatiere === sub)?.coef || 1;
                 const { marks, name, coef } = grades[term][sub];
 
                 const mean = Math.round((marks.reduce((a, b) => a + b, 0) / coef) * 100) / 100;
