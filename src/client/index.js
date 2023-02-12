@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-
+import { fetchGrades } from './utils';
 
 //////////////////////////////////////////////////
 //  PAGES
@@ -28,13 +28,11 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
     if (to.path === '/') {
-        // Optional chaining causes issues with older browsers
-        const cookies = document.cookie.split(/; ?/);
-        const uid = cookies ? cookies.find(row => row.startsWith('id=')) : null;
-        const autoLogin = uid ? uid.split('=')[1] : null;
+        const id = localStorage.getItem('id');
+        const token = localStorage.getItem('token');
 
-        if (autoLogin)
-            get('/api/v2/grades')
+        if (id && token)
+            fetchGrades({ id, token })
                 .then((res) => next({ name: 'grades', params: { grades: JSON.stringify(res) } }))
                 .catch(() => next());
         else next();
