@@ -41,7 +41,7 @@ PORT=3000
 
 ## Database
 
-The app uses a MongoDB (document) database to store usage analytics
+The app used to use a MongoDB (document) database to store usage analytics
 
 School document:
 ```js
@@ -59,11 +59,14 @@ User document:
   logins: Int
 }
 ```
+
+From Dec 27, 2021 to Jan 30, 2023, `45,316` logins were recorded in total (spanning across 1235 unique users from more than 30 schools)
  
 ## Changelog
 
 ### 2.4.0
 Move the whole logic to the client side
+Remove analytics
 
 ### 2.3.1
 Add Discord contact in console  
