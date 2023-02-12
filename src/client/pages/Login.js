@@ -1,4 +1,4 @@
-import { post } from '../utils';
+import { fetchUserData } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -74,12 +74,10 @@ export default {
 
         login() {
             const { username, password, keepLoggedIn } = this;
-            const body = { username: username.value, password: password.value, keepLoggedIn };
             this.loading = true;
 
-            post('/api/v2/login', body)
-                .then(res => res.json())
-                .then((json) => this.$router.push({ name: 'grades', params: { grades: JSON.stringify(json.grades) } }))
+            fetchUserData(username.value, password.value, keepLoggedIn)
+                .then((user) => this.$router.push({ name: 'grades', params: { grades: JSON.stringify(user.grades) } }))
 
                 .catch(err => {
                     this.error = err.message;

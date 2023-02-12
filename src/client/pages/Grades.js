@@ -1,5 +1,5 @@
 import Graph from '../components/Graph';
-import { get } from '../utils';
+import { fetchGrades, logoutUser } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -38,14 +38,22 @@ export default {
         getGrades() {
             const grades = this.grades ? JSON.parse(this.grades) : this.cachedGrades;
 
-            if (!grades)
-                get('/api/v2/grades')
-                    .then(res => {
-                        this.setGrades(res)
-                        this.userGrades = res;
-                    })
-                    .catch(() => this.$router.push('/'));
+            if (!grades) {
+                const token = localStorage.getItem('token');
+                const id = localStorage.getItem('id');
 
+                if (!token || !id) return this.$router.push('/');
+
+                fetchGrades({ id, token })
+                    .then(g => {
+                        this.setGrades(g)
+                        this.userGrades = g;
+                    })
+                    .catch(() => {
+                        logoutUser();
+                        this.$router.push('/');
+                    });
+            }
             else {
                 this.setGrades(grades);
                 this.userGrades = grades;

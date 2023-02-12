@@ -62,6 +62,9 @@ User document:
  
 ## Changelog
 
+### 2.4.0
+Move the whole logic to the client side
+
 ### 2.3.1
 Add Discord contact in console  
 Add missing grades error handling

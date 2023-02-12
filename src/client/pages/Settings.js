@@ -1,6 +1,6 @@
 import ToggleSwitch from '../components/ToggleSwitch';
 import BackButton from '../components/BackButton';
-import { getLocalStorageItem, post, get } from '../utils';
+import { getLocalStorageItem, fetchGrades, logoutUser } from '../utils';
 
 
 //////////////////////////////////////////////////
@@ -22,7 +22,7 @@ export default {
         if (!cachedGrades) return null;
 
         return (
-            <>  
+            <>
                 <BackButton route='/grades'/>
                 <div class="setting" onClick={toggleDukcy}>Gentil canard<ToggleSwitch state={showDucky}/></div>
                 <div class="setting" onClick={togglePink}>Thème rose<ToggleSwitch state={pinkTheme}/></div>
@@ -36,11 +36,19 @@ export default {
 
     mounted() {
         if (!this.cachedGrades) {
-            get('/api/v2/grades')
-                .then(res => {
-                    this.setGrades(res);
-                })
-                .catch(() => this.$router.push('/'));
+            const token = localStorage.getItem('token');
+            const id = localStorage.getItem('id');
+
+            if (!token || !id) return this.$router.push('/');
+
+            fetchGrades({id, token})
+                    .then(g => {
+                        this.setGrades(g)
+                    })
+                    .catch(() => {
+                        logoutUser();
+                        this.$router.push('/');
+                    });
         }
 
         this.pinkTheme = getLocalStorageItem('pinkTheme');
@@ -49,9 +57,8 @@ export default {
 
     methods: {
         logout() {
-            post('/api/v2/logout')
-                .then(() => this.$router.push('/'))
-                .catch(console.error);
+            logoutUser()
+            this.$router.push('/');
         },
 
         toggleDukcy() {

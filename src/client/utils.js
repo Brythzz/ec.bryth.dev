@@ -8,26 +8,99 @@ export const getLocalStorageItem = (key) => {
     }
 }
 
-export const get = async (url) => {
-    const res = await fetch(url);
+const filterGrades = (gradeData, terms) => {
+    let grades = {
+        "A001": {},
+        "A002": {},
+        "A003": {}
+    };
 
-    if (res.status !== 200)
-        throw new Error(`${res.status} ${res.statusText}`);
-    
-    return res.json();
+    for (let grade of gradeData) {
+        let value = grade.valeur.replace(',', '.');
+        if (isNaN(value) || grade.nonSignificatif || value === '') continue;
+        let coef = grade.coef.replace(',', '.')*1;
+
+        const { codePeriode: termCode, codeMatiere: subjectCode } = grade;
+
+        if (grades[termCode][subjectCode]) {
+            grades[termCode][subjectCode].marks.push(((value / grade.noteSur.replace(',', '.')) * 20 * coef));
+            grades[termCode][subjectCode].coef += coef;
+        } else
+            grades[termCode][subjectCode] = {
+                marks: [(value / grade.noteSur.replace(',', '.')) * 20 * coef],
+                coef,
+                name: grade.libelleMatiere
+            };
+    }
+
+    for (let term in grades) {
+        const termSubjectData = terms.find(t => t.idPeriode === term).ensembleMatieres.disciplines;
+
+        for (let sub in grades[term]) {
+            const subjectCoef = termSubjectData.find(s => s.codeMatiere === sub)?.coef ?? 1;
+            const { marks, name, coef } = grades[term][sub];
+
+            const mean = Math.round((marks.reduce((a, b) => a + b, 0) / coef) * 100) / 100;
+
+            grades[term][sub] = {
+                value: mean,
+                name: name,
+                coef: subjectCoef
+            };
+        }
+    }
+
+    return grades;
 }
 
-export const post = async (url, body) => {
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
+const baseApiUrl = 'https://api.ecoledirecte.com/v3/';
 
-    if (res.status !== 200)
-        throw new Error(`${await res.text()}`);
-    
-    return res;
+export const fetchGrades = async ({id, token}) => {
+    const url     = `${baseApiUrl}eleves/${id}/notes.awp?verbe=get`;
+    const body    = `data={"token": "${token}"}`;
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
+    const res = await fetch(url, { method: 'POST', headers, body });
+    const data = await res.json();
+
+    if (!data?.data?.notes) throw new Error(`Impossible de récupérer les notes`);
+
+    const { notes: grades, periodes: terms } = data.data;
+    if (!grades) throw new Error(data.message);
+
+    return filterGrades(grades, terms);
+}
+
+const fetchUser = async (username, password) => {
+    const url     = `${baseApiUrl}login.awp`;
+    const body    = `data={"identifiant": "${username}", "motdepasse": "${password}"}`;
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
+    const res = await fetch(url, { method: 'POST', headers, body });
+    const data = await res.json();
+
+    const account = data?.data?.accounts[0];
+
+    if (!account) throw new Error('Identifiants invalides');
+    if (account.typeCompte !== 'E') throw new Error('Veuillez utiliser un compte élève');
+
+    const { id, idLogin:uid, prenom:name, nom:surname, nomEtablissement:school } = account;
+    return { id, uid, name, surname, school, token: data.token };
+}
+
+export const fetchUserData = async (username, password, keepLoggedIn) => {
+    const user = await fetchUser(username, password);
+    const grades = await fetchGrades(user);
+
+    if (keepLoggedIn) {
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('id', user.id);
+    }
+
+    return { ...user, grades };
+}
+
+export const logoutUser = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
 }
