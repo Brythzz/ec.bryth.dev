@@ -1,42 +1,17 @@
 # ec.bryth.dev
 
 Web app to calculate grade averages using *EcoleDirecte* credentials  
-Built with [Vue.js](https://vuejs.org) and [Express.js](https://expressjs.com)
+Built with [Vue.js](https://vuejs.org)
 
 ## Setup
 ```sh
 npm install
 
-#Node
-node src/server
-#PM2
-pm2 start src/server --name ec.bryth.dev
-```
+# Build the js bundle
+npm start
 
-By default, the app will start on port `3000`
-
-### Nginx config
-```nginx
-server {
-  listen           80;
-  server_name      ec.bryth.dev;
-  root             /var/www/ec.bryth.dev/public;
-
-  location / {
-    error_page     500 502 503 504 =200 @error_page;
-    proxy_pass     http://127.0.0.1:3000/;
-  }
-
-  location @error_page {
-    try_files      $uri error-page.html =503;
-  }
-}
-```
-
-## `.env` file
-```
-MONGO_URI=mongodb+srv://user:password@cluster_name.mongodb.net/database?retryWrites=true&w=majority
-PORT=3000
+# Build the js bundle and watch for changes
+npm run watch
 ```
 
 ## Database
@@ -61,7 +36,7 @@ User document:
 ```
 
 From Dec 27, 2021 to Jan 30, 2023, `45,316` logins were recorded in total (spanning across 1235 unique users from more than 30 schools)
- 
+
 ## Changelog
 
 ### 2.4.0

@@ -8,7 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 
 
 export default {
-    input: `src/client/index.js`,
+    input: `src/index.js`,
     output: {
         format: `iife`,
         file: `public/assets/js/script.js`,
