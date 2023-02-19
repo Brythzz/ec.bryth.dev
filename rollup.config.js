@@ -8,10 +8,10 @@ import terser from '@rollup/plugin-terser';
 
 
 export default {
-    input: `src/index.js`,
+    input: 'src/index.js',
     output: {
-        format: `iife`,
-        file: `public/assets/js/script.js`,
+        format: 'iife',
+        file: 'public/assets/js/script.js',
         globals: {
             'vue': 'Vue',
             'vue-router': 'VueRouter'
@@ -21,9 +21,9 @@ export default {
         babel({
             babelrc: false,
             plugins: [
-                "@vue/babel-plugin-jsx"
+                '@vue/babel-plugin-jsx'
             ],
-            babelHelpers: `bundled`
+            babelHelpers: 'bundled'
         }),
         terser()
     ],
