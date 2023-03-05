@@ -40,7 +40,7 @@ From Dec 27, 2021 to Jan 30, 2023, `45,316` logins were recorded in total (spann
 ## Changelog
 
 ### 2.4.0
-Move the whole logic to the client side
+Move the whole logic to the client side  
 Remove analytics
 
 ### 2.3.1
