@@ -57,7 +57,7 @@ export default {
             const css = 'background: #e0005a; color: #fff; font-weight: bold; padding: 3px 8px; border-radius: 3px;'
             console.log('%cVersion', css, '2.4.0');
             console.log('%cTwitter', css, '@Brythzz');
-            console.log('%cDiscord', css, 'Bryth#0001');
+            console.log('%cDiscord', css, 'bryth');
         }
     }
 }
