@@ -39,6 +39,10 @@ From Dec 27, 2021 to Jan 30, 2023, `45,316` logins were recorded in total (spann
 
 ## Changelog
 
+### 2.4.1
+Simplify functions  
+Add image credit in console
+
 ### 2.4.0
 Move the whole logic to the client side  
 Remove analytics
@@ -96,9 +100,11 @@ Ignore computer science grades experiment (`ignoreCs`)
 ## Screenshots
 
 ### Version 2 (May 2021)
-![v2_login](https://user-images.githubusercontent.com/62302815/158897934-a38ee3a4-e8b8-473c-8b5f-e6e383a1e28d.png)
-![v2_grades](https://user-images.githubusercontent.com/62302815/158897933-39ed3420-d4e8-4b8a-8914-5d4607e68802.png)
-![v2_settings](https://user-images.githubusercontent.com/62302815/158897935-eb46cd69-0fee-4b2d-8177-8317c68ffef3.png)
+![v2_settings](https://github.com/Brythzz/ec.bryth.dev/assets/62302815/b5e8e0c4-95ea-4cc3-8945-5bec4dddcab1)
+
+![v2_login_pink](https://user-images.githubusercontent.com/62302815/158897934-a38ee3a4-e8b8-473c-8b5f-e6e383a1e28d.png)
+![v2_grades_pink](https://user-images.githubusercontent.com/62302815/158897933-39ed3420-d4e8-4b8a-8914-5d4607e68802.png)
+![v2_settings_pink](https://user-images.githubusercontent.com/62302815/158897935-eb46cd69-0fee-4b2d-8177-8317c68ffef3.png)
 
 ### Version 1 (December 23, 2020)
 ![v1_grades](https://user-images.githubusercontent.com/62302815/158897930-d3f95bc6-b37f-4601-8be8-d17570ed4221.png)
