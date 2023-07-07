@@ -76,8 +76,15 @@ export default {
             const { username, password, keepLoggedIn } = this;
             this.loading = true;
 
-            fetchUserData(username.value, password.value, keepLoggedIn)
-                .then((user) => this.$router.push({ name: 'grades', params: { grades: JSON.stringify(user.grades) } }))
+            fetchUserData(username.value, password.value)
+                .then(({ id, token, grades }) => {
+                    if (keepLoggedIn) {
+                        localStorage.setItem('token', token);
+                        localStorage.setItem('id', id);
+                    }
+
+                    this.$router.push({ name: 'grades', params: { grades: JSON.stringify(grades) } })
+                })
 
                 .catch(err => {
                     this.error = err.message;

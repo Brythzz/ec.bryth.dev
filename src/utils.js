@@ -15,25 +15,27 @@ const filterGrades = (gradeData, terms) => {
         "A003": {}
     };
 
-    for (let grade of gradeData) {
+    for (let grade of gradeData) { // Sort grades by term and subject
         let value = grade.valeur.replace(',', '.');
         if (isNaN(value) || grade.nonSignificatif || value === '') continue;
         let coef = grade.coef.replace(',', '.')*1;
 
-        const { codePeriode: termCode, codeMatiere: subjectCode } = grade;
+        const { codePeriode: term, codeMatiere: subject } = grade;
+        const mark = (value / grade.noteSur.replace(',', '.')) * 20 * coef;
 
-        if (grades[termCode][subjectCode]) {
-            grades[termCode][subjectCode].marks.push(((value / grade.noteSur.replace(',', '.')) * 20 * coef));
-            grades[termCode][subjectCode].coef += coef;
-        } else
-            grades[termCode][subjectCode] = {
-                marks: [(value / grade.noteSur.replace(',', '.')) * 20 * coef],
-                coef,
+        if (!grades[term][subject]) {
+            grades[term][subject] = {
+                marks: [],
+                coef: 0,
                 name: grade.libelleMatiere
             };
+        }
+
+        grades[term][subject].marks.push(mark);
+        grades[term][subject].coef += coef;
     }
 
-    for (let term in grades) {
+    for (let term in grades) { // Calculate mean for each subject by term
         const termSubjectData = terms.find(t => t.idPeriode === term).ensembleMatieres.disciplines;
 
         for (let sub in grades[term]) {
@@ -63,7 +65,7 @@ export const fetchGrades = async ({id, token}) => {
     const res = await fetch(url, { method: 'POST', headers, body });
     const data = await res.json();
 
-    if (!data?.data?.notes) throw new Error(`Impossible de récupérer les notes`);
+    if (!data?.data?.notes) throw new Error('Impossible de récupérer les notes');
 
     const { notes: grades, periodes: terms } = data.data;
     if (!grades) throw new Error(data.message);
@@ -84,18 +86,12 @@ const fetchUser = async (username, password) => {
     if (!account) throw new Error('Identifiants invalides');
     if (account.typeCompte !== 'E') throw new Error('Veuillez utiliser un compte élève');
 
-    const { id, idLogin:uid, prenom:name, nom:surname, nomEtablissement:school } = account;
-    return { id, uid, name, surname, school, token: data.token };
+    return { id: account.id, token: data.token };
 }
 
-export const fetchUserData = async (username, password, keepLoggedIn) => {
+export const fetchUserData = async (username, password) => {
     const user = await fetchUser(username, password);
     const grades = await fetchGrades(user);
-
-    if (keepLoggedIn) {
-        localStorage.setItem('token', user.token);
-        localStorage.setItem('id', user.id);
-    }
 
     return { ...user, grades };
 }
