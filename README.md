@@ -14,29 +14,6 @@ npm start
 npm run watch
 ```
 
-## Database
-
-The app used to use a MongoDB (document) database to store usage analytics
-
-School document:
-```js
-{
-  _id: ObjectId,
-  name: String,
-  uniqueLogins: Int
-}
-```
-
-User document:
-```js
-{
-  _id: Int, // EcoleDirecte "idLogin"
-  logins: Int
-}
-```
-
-From Dec 27, 2021 to Jan 30, 2023, `45,316` logins were recorded in total (spanning across 1235 unique users from more than 30 schools)
-
 ## Changelog
 
 ### 2.4.1

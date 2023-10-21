@@ -59,6 +59,7 @@ export default {
             console.log('%cTwitter', css, '@Brythzz');
             console.log('%cDiscord', css, 'bryth');
             console.log('%cImage', css + 'background: #33b878', 'https://unsplash.com/photos/Wv_YC0dRF5c');
+            console.log('%cSources', css + 'background: #0d1117', 'https://github.com/Brythzz/ec.bryth.dev');
         }
     }
 }
