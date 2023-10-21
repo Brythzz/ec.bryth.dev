@@ -12,6 +12,9 @@ npm start
 
 # Build the js bundle and watch for changes
 npm run watch
+
+# Serve the static page
+npx serve public
 ```
 
 ## Changelog
